@@ -1,5 +1,6 @@
-import java.io.IOException;
 
+import javafx.event.ActionEvent; 
+import javafx.event.EventHandler; 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -10,7 +11,7 @@ public class GUI extends Application
 {
     //
     @Override
-    public void start(Stage primaryStage) throws IOException
+    public void start(Stage primaryStage)
     {
         Pane root1 = new Pane();
         Scene scene1 = new Scene(root1, 350, 200);
@@ -32,6 +33,19 @@ public class GUI extends Application
         primaryStage.setScene(scene1);
         primaryStage.show();
 
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>()
+        {
+            public void handle(ActionEvent e)
+            {
+                Student std1 = new Student(txfID.getText(), txfName.getText(), txfMobile.getText());
+                System.out.println("id -> " + std1.getStudentID());
+                System.out.println("name -> " + std1.getFullName());
+                System.out.println("mobile -> " + std1.getMobileNumber());
+            }
+        };
+
+        btnAdd.setOnAction(event);
+
         root1.getChildren().add(lblID);
         root1.getChildren().add(lblName);
         root1.getChildren().add(lblMobile);
@@ -46,18 +60,6 @@ public class GUI extends Application
         root1.getChildren().add(btnDelete);
     }
 
-    
-    //
-    public TextField getTextField(int x, int y, int w, int h) 
-    {
-        TextField txf = new TextField();
-        txf.setMinSize(w, h);
-        txf.setLayoutX(x);
-        txf.setLayoutY(y);
-        return txf;
-    }
-    
-
     //
     public Label getLabel(String text, int x, int y, int w, int h) 
     {
@@ -67,6 +69,16 @@ public class GUI extends Application
         lbl.setLayoutX(x);
         lbl.setLayoutY(y);
         return lbl;
+    }
+
+    //
+    public TextField getTextField(int x, int y, int w, int h) 
+    {
+        TextField txf = new TextField();
+        txf.setMinSize(w, h);
+        txf.setLayoutX(x);
+        txf.setLayoutY(y);
+        return txf;
     }
 
     //

@@ -1,17 +1,13 @@
 {
     "java.project.referencedLibraries": [
-        "c:\\Program Files\\Java\\javafx-sdk-22.0.1\\lib\\javafx-swt.jar",
-        "c:\\Program Files\\Java\\javafx-sdk-22.0.1\\lib\\javafx.controls.jar",
-        "c:\\Program Files\\Java\\javafx-sdk-22.0.1\\lib\\javafx.media.jar",
-        "c:\\Program Files\\Java\\javafx-sdk-22.0.1\\lib\\javafx.fxml.jar",
-        "c:\\Program Files\\Java\\javafx-sdk-22.0.1\\lib\\javafx.graphics.jar",
-        "c:\\Program Files\\Java\\javafx-sdk-22.0.1\\lib\\javafx.web.jar",
-        "c:\\Program Files\\Java\\javafx-sdk-22.0.1\\lib\\javafx.swing.jar",
-        "c:\\Program Files\\Java\\javafx-sdk-22.0.1\\lib\\javafx.base.jar",
-        "c:\\Program Files\\Java\\UCanAccess-5.0.1.bin\\lib\\commons-lang3-3.8.1.jar",
-        "c:\\Program Files\\Java\\UCanAccess-5.0.1.bin\\lib\\commons-logging-1.2.jar",
-        "c:\\Program Files\\Java\\UCanAccess-5.0.1.bin\\lib\\hsqldb-2.5.0.jar",
-        "c:\\Program Files\\Java\\UCanAccess-5.0.1.bin\\lib\\jackcess-3.0.1.jar"
+        "c:\\Users\\simte\\OneDrive\\Code\\Java\\javafx-sdk-22.0.1\\lib\\javafx.swing.jar",
+        "c:\\Users\\simte\\OneDrive\\Code\\Java\\javafx-sdk-22.0.1\\lib\\javafx.media.jar",
+        "c:\\Users\\simte\\OneDrive\\Code\\Java\\javafx-sdk-22.0.1\\lib\\javafx-swt.jar",
+        "c:\\Users\\simte\\OneDrive\\Code\\Java\\javafx-sdk-22.0.1\\lib\\javafx.fxml.jar",
+        "c:\\Users\\simte\\OneDrive\\Code\\Java\\javafx-sdk-22.0.1\\lib\\javafx.base.jar",
+        "c:\\Users\\simte\\OneDrive\\Code\\Java\\javafx-sdk-22.0.1\\lib\\javafx.web.jar",
+        "c:\\Users\\simte\\OneDrive\\Code\\Java\\javafx-sdk-22.0.1\\lib\\javafx.controls.jar",
+        "c:\\Users\\simte\\OneDrive\\Code\\Java\\javafx-sdk-22.0.1\\lib\\javafx.graphics.jar"
     ],
     "java.project.sourcePaths": [
         "."
