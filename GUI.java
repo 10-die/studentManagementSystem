@@ -1,6 +1,9 @@
 
 import javafx.event.ActionEvent; 
-import javafx.event.EventHandler; 
+import javafx.event.EventHandler;
+
+import javax.swing.JOptionPane;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -13,6 +16,8 @@ public class GUI extends Application
     @Override
     public void start(Stage primaryStage)
     {
+
+        DatabaseConnector dbConnector = new DatabaseConnector();
         Pane root1 = new Pane();
         Scene scene1 = new Scene(root1, 350, 200);
 
@@ -33,18 +38,42 @@ public class GUI extends Application
         primaryStage.setScene(scene1);
         primaryStage.show();
 
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>()
+        EventHandler<ActionEvent> addEvent = new EventHandler<ActionEvent>()
         {
-            public void handle(ActionEvent e)
+            public void handle(ActionEvent aE)
             {
                 Student std1 = new Student(txfID.getText(), txfName.getText(), txfMobile.getText());
-                System.out.println("id -> " + std1.getStudentID());
-                System.out.println("name -> " + std1.getFullName());
-                System.out.println("mobile -> " + std1.getMobileNumber());
+                String entry =  "\n" + 
+                                "id -> " + std1.getStudentID() + "\n"+
+                                "name -> " + std1.getFullName() + "\n"+
+                                "mobile -> " + std1.getMobileNumber();
+
+                /*dbConnector.sqlQuery("INSERT INTO tblstudents (ID, Fullname, Mobile) VALUES (" + std1.getStudentID() + ", '" + std1.getFullName() + "', "+std1.getMobileNumber()+")");
+                dbConnector.sqlQuery("INSERT INTO tblstudents (ID, FullName, Mobile) VALUES ('3', 'Merry Sue', '0305406330');");
+
+                JOptionPane.showMessageDialog(null, "Successfully Added the following to tblstudents..." + entry);
+                dbConnector.sqlQuery("SELECT * FROM tblstudents");
+                */
+
+                try {
+                    dbConnector.sqlAdd("3", "Flame Prime", "0315534121");
+                } catch (InstantiationException | IllegalAccessException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         };
 
-        btnAdd.setOnAction(event);
+        EventHandler<ActionEvent> viewEvent = new EventHandler<ActionEvent>()
+        {
+            public void handle(ActionEvent vE)
+            {
+                dbConnector.sqlSelectQuery();
+            }
+        };
+
+        btnAdd.setOnAction(addEvent);
+        btnViewStudent.setOnAction(viewEvent);
 
         root1.getChildren().add(lblID);
         root1.getChildren().add(lblName);
