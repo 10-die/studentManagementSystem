@@ -3,7 +3,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 public class DatabaseConnector 
 {
-    String url = "jdbc:mysql://localhost:3306/student_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    String url = "jdbc:mysql://localhost:3306/student_db";
     String username = "root";
     String password = "";
     String driver = "com.mysql.cj.jdbc.Driver";
@@ -19,7 +19,7 @@ public class DatabaseConnector
     {
         try 
         {
-            String query = "SELECT * FROM tbLstudents";
+            String query = "SELECT * FROM tblstudents";
             String output = "";
             //Establish connection 
             Class.forName(driver).newInstance();

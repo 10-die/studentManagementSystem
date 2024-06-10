@@ -2,6 +2,7 @@ public class Driver
 {
     public static void main(String[] args)
     {
-        GUI.launch(GUI.class, args);
+        GUI guiComp = new GUI();
+        guiComp.setMainGUI();
     }
 }

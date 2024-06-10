@@ -1,123 +1,87 @@
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
 
-import javafx.event.ActionEvent; 
-import javafx.event.EventHandler;
-
-import javax.swing.JOptionPane;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-
-public class GUI extends Application
+public class GUI 
 {
+    DatabaseConnector dbConnector = new DatabaseConnector();
     //
-    @Override
-    public void start(Stage primaryStage)
+    public void setMainGUI()
     {
+        //
+        JFrame frameMain = new JFrame();
+        JPanel panelMain = new JPanel();
 
-        DatabaseConnector dbConnector = new DatabaseConnector();
-        Pane root1 = new Pane();
-        Scene scene1 = new Scene(root1, 350, 200);
+        panelMain.setLayout(null);
+        frameMain.setSize(600,400);
+        frameMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Label lblID = getLabel("ID:", 0, 10, 10, 30);
-        Label lblName = getLabel("Name:", 0, 45, 10, 30);
-        Label lblMobile = getLabel("Mobile:", 0, 80, 10, 30);
+        JLabel lblID = new JLabel("ID:");
+        lblID.setBounds(0, 0, 100, 30);
+        panelMain.add(lblID);
 
-        TextField txfID = getTextField(45, 10, 40, 30);
-        TextField txfName = getTextField(45, 45, 40, 30);
-        TextField txfMobile = getTextField(45, 80, 40, 30);
+        JTextField txfID = new JTextField();
+        txfID.setBounds(100, 0, 300, 30);
+        panelMain.add(txfID);
 
-        Button btnAdd = getButton("Add", 0, 120, 15, 30);
-        Button btnViewStudent = getButton("View Stud", 50, 120, 30, 30);
-        Button btnSearch = getButton("Search", 130, 120, 35, 30);
-        Button btnDelete = getButton("Delete", 195, 120, 25, 30);
+        JLabel lblName = new JLabel("Name:");
+        lblName.setBounds(0, 50, 100, 30);
+        panelMain.add(lblName);
 
-        primaryStage.setTitle("Student Manager");
-        primaryStage.setScene(scene1);
-        primaryStage.show();
+        JTextField txfName = new JTextField();
+        txfName.setBounds(100, 50, 300, 30);
+        panelMain.add(txfName);
 
-        EventHandler<ActionEvent> addEvent = new EventHandler<ActionEvent>()
+        JLabel lblMobile = new JLabel("Mobile:");
+        lblMobile.setBounds(0, 100, 100, 30);
+        panelMain.add(lblMobile);
+
+        JTextField txfMobile = new JTextField();
+        txfMobile.setBounds(100, 100, 300, 30);
+        panelMain.add(txfMobile);
+
+        JButton buttonAdd = new JButton("ADD");
+        buttonAdd.setBounds(0, 300, 120, 30);
+        buttonAdd.addActionListener(new AbstractAction("Add entry to table")
         {
-            public void handle(ActionEvent aE)
+            public void actionPerformed(ActionEvent add)
             {
-                Student std1 = new Student(txfID.getText(), txfName.getText(), txfMobile.getText());
-                String entry =  "\n" + 
-                                "id -> " + std1.getStudentID() + "\n"+
-                                "name -> " + std1.getFullName() + "\n"+
-                                "mobile -> " + std1.getMobileNumber();
-
-                /*dbConnector.sqlQuery("INSERT INTO tblstudents (ID, Fullname, Mobile) VALUES (" + std1.getStudentID() + ", '" + std1.getFullName() + "', "+std1.getMobileNumber()+")");
-                dbConnector.sqlQuery("INSERT INTO tblstudents (ID, FullName, Mobile) VALUES ('3', 'Merry Sue', '0305406330');");
-
-                JOptionPane.showMessageDialog(null, "Successfully Added the following to tblstudents..." + entry);
-                dbConnector.sqlQuery("SELECT * FROM tblstudents");
-                */
-
-                try {
-                    dbConnector.sqlAdd("3", "Flame Prime", "0315534121");
-                } catch (InstantiationException | IllegalAccessException e) {
-                    // TODO Auto-generated catch block
+                try 
+                {
+                    dbConnector.sqlAdd(txfID.getText(), txfName.getText(), txfMobile.getText());
+                } 
+                catch (InstantiationException | IllegalAccessException e) 
+                {
                     e.printStackTrace();
                 }
             }
-        };
+        });
+        panelMain.add(buttonAdd);
 
-        EventHandler<ActionEvent> viewEvent = new EventHandler<ActionEvent>()
+        JButton buttonViewStudent = new JButton("VIEW STUDENT");
+        buttonViewStudent.setBounds(150, 300, 120, 30);
+        buttonViewStudent.addActionListener(new AbstractAction("Add entry to table")
         {
-            public void handle(ActionEvent vE)
+            public void actionPerformed(ActionEvent view)
             {
                 dbConnector.sqlSelectQuery();
             }
-        };
+        });
+        panelMain.add(buttonViewStudent);
 
-        btnAdd.setOnAction(addEvent);
-        btnViewStudent.setOnAction(viewEvent);
+        JButton buttonSearch = new JButton("SEARCH");
+        buttonSearch.setBounds(300, 300, 120, 30);
+        panelMain.add(buttonSearch);
 
-        root1.getChildren().add(lblID);
-        root1.getChildren().add(lblName);
-        root1.getChildren().add(lblMobile);
+        JButton buttonDelete = new JButton("DELETE");
+        buttonDelete.setBounds(450, 300, 120, 30);
+        panelMain.add(buttonDelete);
 
-        root1.getChildren().add(txfID);
-        root1.getChildren().add(txfName);
-        root1.getChildren().add(txfMobile);
-
-        root1.getChildren().add(btnAdd);
-        root1.getChildren().add(btnViewStudent);
-        root1.getChildren().add(btnSearch);
-        root1.getChildren().add(btnDelete);
-    }
-
-    //
-    public Label getLabel(String text, int x, int y, int w, int h) 
-    {
-        Label lbl = new Label();
-        lbl.setText(text);
-        lbl.setMinSize(w, h);
-        lbl.setLayoutX(x);
-        lbl.setLayoutY(y);
-        return lbl;
-    }
-
-    //
-    public TextField getTextField(int x, int y, int w, int h) 
-    {
-        TextField txf = new TextField();
-        txf.setMinSize(w, h);
-        txf.setLayoutX(x);
-        txf.setLayoutY(y);
-        return txf;
-    }
-
-    //
-    public Button getButton(String text, int x, int y, int w, int h) 
-    {
-        Button btn = new Button();
-        btn.setText(text);
-        btn.setMinSize(w, h);
-        btn.setLayoutX(x);
-        btn.setLayoutY(y);
-        return btn;
+        frameMain.add(panelMain);
+        frameMain.setVisible(true);
     }
 }
