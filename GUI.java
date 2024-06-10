@@ -79,6 +79,20 @@ public class GUI
 
         JButton buttonDelete = new JButton("DELETE");
         buttonDelete.setBounds(450, 300, 120, 30);
+        buttonDelete.addActionListener(new AbstractAction("remove entry from the table")
+        {
+            public void actionPerformed(ActionEvent remove)
+            {
+                try 
+                {
+                    dbConnector.sqlDelete(txfID.getText());
+                } 
+                catch (InstantiationException | IllegalAccessException e) 
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
         panelMain.add(buttonDelete);
 
         frameMain.add(panelMain);

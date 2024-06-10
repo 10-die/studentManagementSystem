@@ -86,4 +86,41 @@ public class DatabaseConnector
             }
         }
     }
+
+    //
+    public void sqlDelete(String ID) throws InstantiationException, IllegalAccessException
+    {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try 
+        {
+            Class.forName(driver).newInstance();
+            connection = DriverManager.getConnection(url, username, password);
+            preparedStatement = connection.prepareStatement("DELETE FROM tblstudents WHERE ID=?");
+            preparedStatement.setString(1, ID);
+            boolean b = preparedStatement.execute();
+            if (b == true) 
+                System.out.println("1 record deleted"); 
+        } 
+        catch (SQLException sqlEx) 
+        {
+            sqlEx.printStackTrace();
+            System.exit(1);
+        }
+        catch (ClassNotFoundException clsNotFoundEx)
+        {
+            clsNotFoundEx.printStackTrace();
+            System.exit(1);
+        }
+        finally
+        {
+            try 
+            {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                System.exit(1);
+            }
+        }
+    }
 }
