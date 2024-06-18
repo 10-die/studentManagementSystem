@@ -9,6 +9,13 @@
             "name": "Driver",
             "request": "launch",
             "mainClass": "Driver",
+            "projectName": "studentManagementSystem_29305078"
+        },
+        {
+            "type": "java",
+            "name": "Driver",
+            "request": "launch",
+            "mainClass": "Driver",
             "projectName": "studentManagementSystem_f6ef3ada"
         },
         {

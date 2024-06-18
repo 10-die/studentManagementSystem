@@ -8,11 +8,12 @@ import java.awt.event.ActionEvent;
 
 public class GUI 
 {
-    DatabaseConnector dbConnector = new DatabaseConnector();
+    DatabaseConnector dbConn = new DatabaseConnector();
     //
     public void setMainGUI()
     {
         //
+        dbConn.setTable();
         JFrame frameMain = new JFrame();
         JPanel panelMain = new JPanel();
 
@@ -52,7 +53,7 @@ public class GUI
             {
                 try 
                 {
-                    dbConnector.sqlAdd(txfID.getText(), txfName.getText(), txfMobile.getText());
+                    dbConn.sqlAdd(txfID.getText(), txfName.getText(), txfMobile.getText());
                 } 
                 catch (InstantiationException | IllegalAccessException e) 
                 {
@@ -68,7 +69,7 @@ public class GUI
         {
             public void actionPerformed(ActionEvent view)
             {
-                dbConnector.sqlSelectQuery();
+                dbConn.sqlSelectQuery();
             }
         });
         panelMain.add(buttonViewStudent);
@@ -85,7 +86,7 @@ public class GUI
             {
                 try 
                 {
-                    dbConnector.sqlDelete(txfID.getText());
+                    dbConn.sqlDelete(txfID.getText(), txfID);
                 } 
                 catch (InstantiationException | IllegalAccessException e) 
                 {
