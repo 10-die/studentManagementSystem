@@ -17,10 +17,10 @@ public class DatabaseConnector
     // default object constructor, create objects without parameters
     public DatabaseConnector()
     {
-        
+        JOptionPane.showMessageDialog(null, "accessing tblstudent");
     }
 
-    // mutator method, create new table in database
+    /*// mutator method, create new table in database
     public void setTable()
     {
         Connection connection = null;
@@ -56,9 +56,10 @@ public class DatabaseConnector
                 System.exit(1);
             }
         }
-    }
+    } */
+
     // 
-    public void sqlSelectQuery()
+    public void sqlSelectQuery(JFrame frameMain)
     {
         try 
         {
@@ -79,7 +80,7 @@ public class DatabaseConnector
             }
             conn.close();
 
-            JOptionPane.showMessageDialog(null, output);
+            JOptionPane.showMessageDialog(frameMain, "List Of Students\n\n" + output, "Student Information", 1);
 
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) 
         {
@@ -88,7 +89,7 @@ public class DatabaseConnector
     }
 
     //
-    public void sqlAdd(String ID, String fullName, String mobile) throws InstantiationException, IllegalAccessException
+    public void sqlAdd(String ID, String fullName, String mobile, JTextField txfID, JTextField txfName, JTextField txfMobile,  JFrame frameMain) throws InstantiationException, IllegalAccessException
     {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -102,7 +103,12 @@ public class DatabaseConnector
             preparedStatement.setString(3, mobile);
 
             boolean b = preparedStatement.execute();
-            JOptionPane.showMessageDialog(null, "student added to the table");
+
+            txfID.setText("");
+            txfName.setText("");
+            txfMobile.setText("");
+
+            JOptionPane.showMessageDialog(frameMain, "student added to the table" + "\nID: " + ID + "\nName: " + fullName + "\nMobile: " + mobile, "Success", 1);
         }
         catch (SQLException sqlExeException)
         {
@@ -129,7 +135,7 @@ public class DatabaseConnector
     }
 
     //
-    public void sqlDelete(String ID, JTextField txfID) throws InstantiationException, IllegalAccessException
+    public void sqlDelete(String ID, JTextField txfID, JTextField txfName, JTextField txfMobile, JFrame frameMain) throws InstantiationException, IllegalAccessException
     {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -141,7 +147,9 @@ public class DatabaseConnector
             preparedStatement.setString(1, ID);
             boolean b = preparedStatement.execute();
             txfID.setText("");
-            JOptionPane.showMessageDialog(null, "Deleted StudentID " + ID);
+            txfName.setText("");
+            txfMobile.setText("");
+            JOptionPane.showMessageDialog(frameMain, "Student with ID " + ID + " deleted successfully", "Student Deleted", 1);
         } 
         catch (SQLException sqlEx) 
         {
