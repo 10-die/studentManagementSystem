@@ -11,6 +11,9 @@ public class GUI
 {
     // dbConn object built to provide the GUI class with access to the DatabaseConnector classes methods
     private DatabaseConnector dbConn = new DatabaseConnector();
+    private String[] arrID = new String[2];
+    private int i = 0;
+    private boolean idExists;
 
     // void method, when called, build and display Student Manager GUI,
     public void setMainGUI()
@@ -57,10 +60,19 @@ public class GUI
             {
                 try 
                 {
-
                     if (txfMobile.getText().length() == 10 && txfMobile.getText().charAt(0) == '0') 
                     {
+                        arrID[i] = txfID.getText(); 
+                        doesIDExist(txfID.getText());
+                        if (idExists == false) 
+                        {
                             dbConn.sqlAdd(txfID.getText(), txfName.getText(), txfMobile.getText(), txfID, txfName, txfMobile, frameMain);
+                            i++;
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(frameMain, "This ID belongs to another student", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+                        }
                     }    
                     else
                     {
@@ -81,13 +93,20 @@ public class GUI
         {
             public void actionPerformed(ActionEvent view)
             {
-                dbConn.sqlSelectQuery(frameMain);
+                dbConn.sqlSelectAll(frameMain);
             }
         });
         panelMain.add(buttonViewStudent);
 
         JButton buttonSearch = new JButton("SEARCH");
         buttonSearch.setBounds(230, 120, 100, 30);
+        buttonSearch.addActionListener(new AbstractAction("Search for student by ID")
+        {
+            public void actionPerformed(ActionEvent search)
+            {
+                dbConn.sqlSearch(txfID.getText(), frameMain);
+            }
+        });
         panelMain.add(buttonSearch);
 
         JButton buttonDelete = new JButton("DELETE");
@@ -110,5 +129,23 @@ public class GUI
 
         frameMain.add(panelMain);
         frameMain.setVisible(true);
+    }
+
+    //
+    public void doesIDExist(String ID)
+    {
+        for (int j = 0; j < arrID.length; j++)
+        {
+            if (arrID[j].equals(ID)) 
+            {
+                System.out.println("ID EXISTS");
+                idExists = true;
+            }
+            else
+            {
+                System.out.println("ID DOES NOT EXIST");
+                idExists = false;
+            }
+        }
     }
 }

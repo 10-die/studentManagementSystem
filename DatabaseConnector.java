@@ -59,7 +59,7 @@ public class DatabaseConnector
     } */
 
     // 
-    public void sqlSelectQuery(JFrame frameMain)
+    public void sqlSelectAll(JFrame frameMain)
     {
         try 
         {
@@ -88,8 +88,52 @@ public class DatabaseConnector
         }
     }
 
+    // 
+    public void sqlSearch(String ID, JFrame frameMain)
+    {
+        Connection connection = null;
+        Statement statement = null;
+        String output = "";
+        try 
+        {
+            Class.forName(DRIVER_JDBC);
+            connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM tblstudent WHERE ID=" + ID);
+            
+            while (resultSet.next()) 
+            {
+                output = output + resultSet.getString("ID") + " " + resultSet.getString("FullName") + " " + resultSet.getString("Mobile");
+            }
+
+            JOptionPane.showMessageDialog(frameMain, "Student Information\n\n" + output, "Student Found", 1);
+
+        } 
+        catch (SQLException sqlEx) 
+        {
+            sqlEx.printStackTrace();
+            System.exit(1);
+        }
+        catch (ClassNotFoundException clsNotFoundEx) 
+        {
+            clsNotFoundEx.printStackTrace();
+            System.exit(1);
+        }
+        finally
+        {
+            try 
+            {
+                statement.close();
+                connection.close();
+            } catch (Exception e) 
+            {
+                System.exit(1);
+            }
+        }
+    }
+
     //
-    public void sqlAdd(String ID, String fullName, String mobile, JTextField txfID, JTextField txfName, JTextField txfMobile,  JFrame frameMain) throws InstantiationException, IllegalAccessException
+    public void sqlAdd(String ID, String Name, String Mobile, JTextField txfID, JTextField txfName, JTextField txfMobile,  JFrame frameMain) throws InstantiationException, IllegalAccessException
     {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -99,8 +143,8 @@ public class DatabaseConnector
             connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
             preparedStatement = connection.prepareStatement("INSERT INTO tblstudent VALUES(?,?,?)");
             preparedStatement.setString(1, ID);
-            preparedStatement.setString(2, fullName);
-            preparedStatement.setString(3, mobile);
+            preparedStatement.setString(2, Name);
+            preparedStatement.setString(3, Mobile);
 
             boolean b = preparedStatement.execute();
 
@@ -108,7 +152,7 @@ public class DatabaseConnector
             txfName.setText("");
             txfMobile.setText("");
 
-            JOptionPane.showMessageDialog(frameMain, "student added to the table" + "\nID: " + ID + "\nName: " + fullName + "\nMobile: " + mobile, "Success", 1);
+            JOptionPane.showMessageDialog(frameMain, "student added to the table" + "\nID: " + ID + "\nName: " + Name + "\nMobile: " + Mobile, "Success", 1);
         }
         catch (SQLException sqlExeException)
         {
@@ -172,7 +216,4 @@ public class DatabaseConnector
             }
         }
     }
-
-    //
-
 }

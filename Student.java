@@ -1,8 +1,8 @@
 public class Student
 {
-    private String StudentID;
-    private String FullName;
-    private String MobileNumber;
+    private String ID;
+    private String Name;
+    private String Mobile;
     //
     public Student()
     {
@@ -10,38 +10,38 @@ public class Student
     }
 
     //
-    public Student(String StudentID, String FullName, String MobileNumber)
+    public Student(String ID, String Name, String Mobile)
     {
-        setStudentID(StudentID);
-        setFullName(FullName);
-        setMobileNumber(MobileNumber);
+        setID(ID);
+        setName(Name);
+        setMobile(Mobile);
     }
 
     //
-    public void setStudentID(String StudentID)
+    public void setID(String ID)
     {
-        this.StudentID = StudentID;
+        this.ID = ID;
     }
-    public void setFullName(String FullName)
+    public void setName(String Name)
     {
-        this.FullName = FullName;
+        this.Name = Name;
     }
-    public void setMobileNumber(String MobileNumber)
+    public void setMobile(String Mobile)
     {
-        this.MobileNumber = MobileNumber;
+        this.Mobile = Mobile;
     }
 
     //
-    public String getStudentID()
+    public String getID()
     {
-        return this.StudentID;
+        return this.ID;
     }
-    public String getFullName()
+    public String getName()
     {
-        return this.FullName;
+        return this.Name;
     }
-    public String getMobileNumber()
+    public String getMobile()
     {
-        return this.MobileNumber;
+        return this.Mobile;
     }
 }
